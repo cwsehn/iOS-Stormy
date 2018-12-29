@@ -4,6 +4,7 @@
 //
 //  Created by Pasan Premaratne on 5/8/18.
 //  Copyright © 2018 Treehouse. All rights reserved.
+//  Modified by Chris W. Sehnert 12/29/2018
 //
 
 import UIKit
@@ -18,12 +19,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
-    let secretKey = SecretKey()
+    let client = DarkSkyAPIClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // [unowned self] is used when enclosing function has a longer lifespan than the enclosed closure...
+        // ie ...in this case ViewController will be around to call displayWeather() after DarkSkyAPIClient closure completes...
+        client.getCurrentWeather(at: LocationCoordinate.alcatrazIsland) { [unowned self] currentWeather, error in
+            if let currentWeather = currentWeather {
+                let viewModel = CurrentWeatherViewModel(model: currentWeather)
+                self.displayWeather(using: viewModel)
+            }
+        }
         
+        /*
+        // properties and methods within have been refactored into seperate objects...
+ 
         let baseURL = URL(string: "https://api.darksky.net/forecast/\(secretKey.darkSkyAPIKey)/")
         guard let forecastURL = URL(string: "37.8267,-122.4233", relativeTo: baseURL) else {
             return
@@ -56,6 +68,8 @@ class ViewController: UIViewController {
         let currentWeather = CurrentWeather(temperature: 90.0, humidity: 0.8, precipProbability: 0.2, summary: "Hot", icon: "clear-night")
         let viewModel = CurrentWeatherViewModel(model: currentWeather)
         displayWeather(using: viewModel)
+ 
+        */
     }
     
     func displayWeather(using viewModel: CurrentWeatherViewModel) {
