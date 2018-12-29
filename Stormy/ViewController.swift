@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         
         /*
         // properties and methods within have been refactored into seperate objects...
- 
+         // reNamed parent folder...
         let baseURL = URL(string: "https://api.darksky.net/forecast/\(secretKey.darkSkyAPIKey)/")
         guard let forecastURL = URL(string: "37.8267,-122.4233", relativeTo: baseURL) else {
             return
