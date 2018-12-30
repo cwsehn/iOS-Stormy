@@ -8,6 +8,8 @@
 
 import Foundation
 
+// The functionality of JSONDownloader was refactored using Codable Protocol inheritence...
+/*
 class JSONDownloader {
     let session: URLSession
     
@@ -49,3 +51,4 @@ class JSONDownloader {
         return task
     }
 }
+*/

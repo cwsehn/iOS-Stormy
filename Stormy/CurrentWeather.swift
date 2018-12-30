@@ -10,12 +10,24 @@ import Foundation
 import UIKit
 
 
-struct CurrentWeather {
+struct CurrentWeather: Codable {
     let temperature: Double
     let humidity: Double
     let precipProbability: Double
     let summary: String
     let icon: String
+    
+    /*
+    // the following enum is unneccessary...it is presented to demonstrate how Codable Protocol functions under the hood...
+    // Codable will infer a CodingKey from the property name given it matches the key...ie: temperature == "temperature"
+    enum CurrentWeatherCodingKeys: String, CodingKey {
+        case temperature = "temperature"
+        case humidity = "humidity"
+        case precipProbability = "precipProbability"
+        case summary = "summary"
+        case icon = "icon"
+    }
+    */
 }
 
 extension CurrentWeather {
@@ -36,6 +48,9 @@ extension CurrentWeather {
     }
 }
 
+
+/*
+ //The Following extension is not used with Codable protocol procedures....
 extension CurrentWeather {
     struct Key {
         static let temperature = "temperature"
@@ -61,7 +76,8 @@ extension CurrentWeather {
         self.summary = summaryString
         self.icon = iconString
     }
+ 
+ 
 }
-
-
+*/
 
